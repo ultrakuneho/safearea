@@ -1,0 +1,38 @@
+{
+  "name": "com.ultrakuneho.safearea",
+  "displayName": "SafeArea",
+  "version": "1.0.0",
+  "description": "This package provides the SafeAreaFitter component, a layout container that adjusts its size and position to match the screen's safe area, ensuring key UI components are visible and unobstructed by screen cutouts, notches, or rounded corners.\r\n\r\nFeatures real-time previews and optimized performance using cached calculations to minimize redundant computations.",
+  "unity": "2021.1",
+  "unityRelease": "0f1",
+  "author": "Stephen de Sagun <ultrakuneho+safearea@gmail.com> (https://github.com/ultrakuneho)",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "com.unity.ugui": "1.0.0"
+  },
+  "samples": [
+    {
+      "displayName": "Demo",
+      "description": "Simple UI layout demonstration utilizing the SafeAreaFitter component.",
+      "path": "Samples~"
+    }
+  ],
+  "keywords": [
+    "safearea",
+    "notches",
+    "cutouts",
+    "ugui"
+  ],
+  "homepage": "https://github.com/ultrakuneho/safearea",
+  "documentationURL": "https://github.com/ultrakuneho/safearea/blob/main/README.md",
+  "changelogURL": "https://github.com/ultrakuneho/safearea/blob/main/CHANGELOG.md",
+  "licenseURL": "https://github.com/ultrakuneho/safearea/blob/main/LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/ultrakuneho/safearea/issues",
+    "email": "ultrakuneho+safearea@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ultrakuneho/safearea.git"
+  }
+}
