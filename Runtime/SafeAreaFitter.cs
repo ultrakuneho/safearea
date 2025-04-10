@@ -1,10 +1,11 @@
-﻿// *****************************************************************************
-//  SafeAreaFitter.cs
-// *****************************************************************************
-//  Copyright © 2024 Stephen de Sagun
-//  This package is released under the BSD 3-Clause license.
-//  See the LICENSE.md file in the package root for more information.
-// *****************************************************************************
+﻿// =============================================================================
+// SafeAreaFitter.cs
+// -----------------------------------------------------------------------------
+// Copyright © 2024 Stephen de Sagun
+// This package is released under the BSD-3 Clause License.
+// See the LICENSE.md file in the package root for more information.
+// =============================================================================
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,22 +33,23 @@ namespace UltraKuneho.SafeArea {
   [AddComponentMenu("Layout/" + nameof(SafeAreaFitter))]
   public class SafeAreaFitter : MonoBehaviour {
     private static readonly HashSet<RectTransform> k_Targets = new();
-    private static readonly Vector2                k_Pivot   = new(0.5f, 0.5f);
+    private static readonly Vector2 k_Pivot = new(0.5f, 0.5f);
 
 
-    private static int     s_ScreenWidth;
-    private static int     s_ScreenHeight;
+    private static Rect s_SafeArea;
     private static Vector2 s_AnchorMin;
     private static Vector2 s_AnchorMax;
 
 
-    private RectTransform              m_RectTransform;
+    private RectTransform m_RectTransform;
     private DrivenRectTransformTracker m_Tracker;
 
 
-    static SafeAreaFitter() {
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    private static void Initialize() {
       Canvas.preWillRenderCanvases -= OnPreWillRenderCanvas;
       Canvas.preWillRenderCanvases += OnPreWillRenderCanvas;
+      k_Targets.Clear();
     }
 
 
@@ -60,11 +62,9 @@ namespace UltraKuneho.SafeArea {
       var height = Screen.height;
       if (height < -1) return;
 
-      if (width == s_ScreenWidth && height == s_ScreenHeight) return;
-      s_ScreenWidth  = width;
-      s_ScreenHeight = height;
-
       var safeArea = Screen.safeArea;
+      if (safeArea != s_SafeArea) return;
+      s_SafeArea = safeArea;
       s_AnchorMin = new Vector2(safeArea.xMin / width, safeArea.yMin / height);
       s_AnchorMax = new Vector2(safeArea.xMax / width, safeArea.yMax / height);
 
@@ -75,13 +75,13 @@ namespace UltraKuneho.SafeArea {
 
     private static void Resize(RectTransform target) {
       if (!target) return;
-      target.localRotation    = Quaternion.identity;
-      target.localScale       = Vector3.one;
-      target.anchorMin        = s_AnchorMin;
-      target.anchorMax        = s_AnchorMax;
+      target.localRotation = Quaternion.identity;
+      target.localScale = Vector3.one;
+      target.anchorMin = s_AnchorMin;
+      target.anchorMax = s_AnchorMax;
       target.anchoredPosition = Vector2.zero;
-      target.sizeDelta        = Vector2.zero;
-      target.pivot            = k_Pivot;
+      target.sizeDelta = Vector2.zero;
+      target.pivot = k_Pivot;
     }
 
 
